@@ -6,6 +6,10 @@ on:
       - main
 jobs:
   deploy-lambda:
+    strategy:
+      matrix:
+        lambda-function: [lambda-sqs-consumer]
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -13,7 +17,7 @@ jobs:
 
       - name: Copy code to rootdir
         run: |
-          cp -r ./src/* ./
+          cp -r ./src/${{ matrix.lambda-function }}/* ./
 
       - name: Zipping files
         run: zip -r ./deploy.zip . -x '.github/*' 'src/*' 'README.md' '.git'
@@ -29,5 +33,5 @@ jobs:
       - name: Deploy Lambda function
         run: |
           aws lambda update-function-code \
-          --function-name lambda-sqs-consumer \
+          --function-name ${{ matrix.lambda-function }} \
           --zip-file fileb://deploy.zip
