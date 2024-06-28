@@ -18,11 +18,13 @@ def lambda_handler(event, context):
         body = json.loads(record['body'])[0]
         
         print("body", body, type(body))
-        email_id = body['email_id']
-        print("email_id", email_id, type(email_id))
+        email_id_list = body['email_id']
+        
+        for email_id in email_id_list:
+            print("email_id", email_id, type(email_id))
 
-        content = get_email_contents(email_id, cursor)
-        print("content", content)
+            content = get_email_contents(email_id, cursor)
+            print("content", content)
 
     cnx.close()
 
