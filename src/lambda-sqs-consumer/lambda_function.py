@@ -11,11 +11,6 @@ def lambda_handler(event, context):
     }
     cnx = connection.MySQLConnection(**config)
     cursor = cnx.cursor()
-    
-    content = get_email_contents(14205, cursor)
-    print("content", content)
-
-    cnx.close()
 
     records = event['Records']
     
@@ -26,6 +21,13 @@ def lambda_handler(event, context):
         email_id = body['email_id']
         print("email_id", email_id, type(email_id))
 
+        content = get_email_contents(email_id, cursor)
+        print("content", content)
+
+    cnx.close()
+
+    
+
 
 def get_email_contents(email_id: int, cursor)->str:
     query = '''
@@ -33,7 +35,7 @@ def get_email_contents(email_id: int, cursor)->str:
     '''.format(email_id)
     cursor.execute(query)
     result = cursor.fetchall()
-    print("result", result)
+    # print("result", result)
     return result[0][0]
 
 def spam_classification()->bool:
