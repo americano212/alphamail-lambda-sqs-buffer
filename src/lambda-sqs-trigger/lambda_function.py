@@ -12,7 +12,14 @@ def lambda_handler(event, context):
         'database':  os.environ['database'],
     }
     cnx = connection.MySQLConnection(**config)
+    cursor = cnx.cursor()
 
+    query = '''
+    SELECT id as email_id FROM mail WHERE is_spam IS NULL LIMIT 10
+    '''
+    cursor.execute(query)   
+    select_all_result = cursor.fetchall()
+    print("select_all_result", select_all_result, type(select_all_result))
     lst = [{'email_id': [1, 2]}]
     msg_body = json.dumps(lst)
     
