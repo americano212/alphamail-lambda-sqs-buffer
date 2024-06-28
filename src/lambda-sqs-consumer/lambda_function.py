@@ -29,7 +29,7 @@ def lambda_handler(event, context):
 
 def get_email_contents(email_id: int, cursor)->str:
     query = '''
-    SELECT content FROM alphamail_dev.mail WHERE id=%d
+    SELECT content FROM alphamail_dev.mail WHERE id={}
     '''.format(email_id)
     cursor.execute(query)
     result = cursor.fetchall()
