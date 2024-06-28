@@ -7,3 +7,5 @@ def lambda_handler(event, context):
     for record in records:
         body = record['body']
         print("body", body)
+        email_id = body['email_id']
+        print("email_id", email_id, type(email_id))
