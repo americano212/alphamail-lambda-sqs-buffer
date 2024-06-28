@@ -46,7 +46,7 @@ def spam_classification(content)->bool:
     lambda_client = boto3.client('lambda')
     response = lambda_client.invoke(
         FunctionName='spam-classification',
-        InvocationType='Event',
+        InvocationType='RequestResponse',
         Payload=json.dumps({"body-json": {"data": content}})
     )
     print("response", response, type(response))
