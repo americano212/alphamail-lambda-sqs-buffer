@@ -1,9 +1,9 @@
 import json
 
 def lambda_handler(event, context):
-    print(event)
+    print("event", event)
     records = event['Records']
     
     for record in records:
         body = record['body']
-        print(body)
+        print("body", body)
