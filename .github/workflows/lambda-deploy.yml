@@ -8,7 +8,7 @@ jobs:
   deploy-lambda:
     strategy:
       matrix:
-        lambda-function: [lambda-sqs-consumer]
+        lambda-function: [lambda-sqs-consumer, lambda-sqs-trigger]
 
     runs-on: ubuntu-latest
     steps:
