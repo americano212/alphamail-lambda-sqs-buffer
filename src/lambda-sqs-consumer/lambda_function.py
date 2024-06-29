@@ -15,7 +15,7 @@ def lambda_handler(event, context):
         cursor = cnx.cursor()
 
         records = event['Records']
-        
+        print("records", records, type(records))
         for record in records:
             recordBody = json.loads(record['body'])[0]
 
