@@ -27,7 +27,7 @@ def lambda_handler(event, context):
             statusCode = payload['statusCode']
             body = payload['body']
 
-            if(statusCode == '200'):
+            if(statusCode == 200):
                 isSpam = True if body != 1 else False
                 save_is_spam(email_id, isSpam, cursor)
             else:
