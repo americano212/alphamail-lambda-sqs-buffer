@@ -32,10 +32,7 @@ def lambda_handler(event, context):
                 save_is_spam(email_id, isSpam, cursor, cnx)
             else:
                 errorMessage = body
-                error_alert(email_id, errorMessage)
-
-
-
+                save_error_is_spam(email_id, errorMessage)
 
     cnx.close()
 
@@ -69,7 +66,12 @@ def save_is_spam(email_id: int, is_spam: bool, cursor, cnx):
     print(cursor.rowcount, "record(s) affected")
     
 
-def error_alert(email_id: int, error_message: str):
+def save_error_is_spam(email_id: int, error_message: str, cursor, cnx):
+    query='''
+    UPDATE mail SET is_spam={0} WHERE id={1}
+    '''.format(-1, email_id)
+    cursor.execute(query)
+    cnx.commit()
     print("email_id", email_id)
     print("error_message", error_message)
 
