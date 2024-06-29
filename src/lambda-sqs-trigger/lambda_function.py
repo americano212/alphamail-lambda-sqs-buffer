@@ -24,7 +24,7 @@ def lambda_handler(event, context):
     lst = [x[0] for x in select_all_result]
 
     for idx in range(0, len(lst), 10):
-        result = [{'email_id': lst[idx:idx+10]}]
+        result = {'email_id': lst[idx:idx+10]}
         msg_body = json.dumps(result)
         msg = send_sqs_message(os.environ['SQS_QUEUE'], msg_body)
 
