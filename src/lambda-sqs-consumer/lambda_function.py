@@ -29,7 +29,7 @@ def lambda_handler(event, context):
 
             if(statusCode == 200):
                 isSpam = True if body != 1 else False
-                save_is_spam(email_id, isSpam, cursor)
+                save_is_spam(email_id, isSpam, cursor, cnx)
             else:
                 errorMessage = body
                 error_alert(email_id, errorMessage)
@@ -59,14 +59,14 @@ def spam_classification(content)->dict:
     payload = json.loads(response['Payload'].read().decode('utf8').replace("'", '"'))
     return payload
 
-def save_is_spam(email_id: int, is_spam: bool, cursor):
+def save_is_spam(email_id: int, is_spam: bool, cursor, cnx):
     query='''
     UPDATE mail SET is_spam={0} WHERE id={1}
     '''.format(1 if is_spam else 0, email_id)
     cursor.execute(query)
-    result = cursor.fetchall()
+    cnx.commit()
     print("email_id", email_id)
-    print("save_is_spam_result", result)
+    print(cursor.rowcount, "record(s) affected")
     
 
 def error_alert(email_id: int, error_message: str):
