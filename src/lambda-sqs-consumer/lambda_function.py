@@ -32,7 +32,7 @@ def lambda_handler(event, context):
                 save_is_spam(email_id, isSpam, cursor, cnx)
             else:
                 errorMessage = body
-                save_error_is_spam(email_id, errorMessage)
+                save_error_is_spam(email_id, errorMessage, cursor, cnx)
 
     cnx.close()
 
