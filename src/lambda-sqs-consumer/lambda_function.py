@@ -4,38 +4,40 @@ import boto3
 from mysql.connector import (connection)
 
 def lambda_handler(event, context):
-    config = {
-        'user': os.environ['user'],
-        'password': os.environ['password'],
-        'host':  os.environ['host'],
-        'database':  os.environ['database'],
-    }
-    cnx = connection.MySQLConnection(**config)
-    cursor = cnx.cursor()
+    try:
+        config = {
+            'user': os.environ['user'],
+            'password': os.environ['password'],
+            'host':  os.environ['host'],
+            'database':  os.environ['database'],
+        }
+        cnx = connection.MySQLConnection(**config)
+        cursor = cnx.cursor()
 
-    records = event['Records']
-    
-    for record in records:
-        recordBody = json.loads(record['body'])[0]
+        records = event['Records']
+        
+        for record in records:
+            recordBody = json.loads(record['body'])[0]
 
-        email_id_list = recordBody['email_id']
+            email_id_list = recordBody['email_id']
 
-        for email_id in email_id_list:
-            content = get_email_content(email_id, cursor)
+            for email_id in email_id_list:
+                content = get_email_content(email_id, cursor)
 
-            payload = spam_classification(content)
-            statusCode = payload['statusCode']
-            body = payload['body']
+                payload = spam_classification(content)
+                statusCode = payload['statusCode']
+                body = payload['body']
 
-            if(statusCode == 200):
-                isSpam = True if body != 1 else False
-                save_is_spam(email_id, isSpam, cursor, cnx)
-            else:
-                errorMessage = body
-                save_error_is_spam(email_id, errorMessage, cursor, cnx)
+                if(statusCode == 200):
+                    isSpam = True if body != 1 else False
+                    save_is_spam(email_id, isSpam, cursor, cnx)
+                else:
+                    errorMessage = body
+                    save_error_is_spam(email_id, errorMessage, cursor, cnx)
 
-    cnx.close()
-
+        cnx.close()
+    except Exception as e:
+        print('Error', e)
 
 def get_email_content(email_id: int, cursor)->str:
     query = '''
