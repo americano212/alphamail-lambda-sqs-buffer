@@ -40,13 +40,13 @@ def lambda_handler(event, context):
             'headers': {'Content-Type': 'application/json'}
         }
 
-event = {
-  'queryStringParameters' :{
-      "sourceWord": "안녕하세요. 나는 홍길동입니다.",
-      "sourceLanguage": "ko",
-      "targetLanguage": "en"
-  }
-}
+# event = {
+#   'queryStringParameters' :{
+#       "sourceWord": "안녕하세요. 나는 홍길동입니다.",
+#       "sourceLanguage": "ko",
+#       "targetLanguage": "en"
+#   }
+# }
 
-context = {}
-print(lambda_handler(event, context))
+# context = {}
+# print(lambda_handler(event, context))
