@@ -73,6 +73,7 @@ def translate(content):
         InvocationType='RequestResponse',
         Payload=json.dumps({"queryStringParameters": {"sourceWord": content, "sourceLanguage": "ko", "targetLanguage": "en"}})
     )
+    print("translate_response", response)
     payload = json.loads(response['Payload'].read().decode('utf8').replace("'", '"'))
     print("translate_payload-----------", payload)
 
