@@ -75,9 +75,10 @@ def translate(content):
     )
     print("payload!", response['Payload'])
     print("read!", response['Payload'].read())
-    print("decode!", response['Payload'].read().decode('utf8'))
-    print("replace!", response['Payload'].read().decode('utf8').replace("'", '"'))
-    payload = json.loads(response['Payload'].read().decode('utf8').replace("'", '"'))
+    print("decode! unicode-escape", response['Payload'].read().decode('unicode-escape'))
+    print("decode! ascii", response['Payload'].read().decode('ascii'))
+    print("replace!", response['Payload'].read().decode('unicode-escape').replace("'", '"'))
+    payload = json.loads(response['Payload'].read().decode('unicode-escape').replace("'", '"'))
     print("translate_payload-----------", payload)
 
 def save_is_spam(email_id: int, is_spam: int, cursor, cnx):
