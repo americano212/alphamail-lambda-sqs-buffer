@@ -74,15 +74,7 @@ def translate(content):
         Payload=json.dumps({"queryStringParameters": {"sourceWord": content, "sourceLanguage": "ko", "targetLanguage": "en"}})
     )
     print("payload!", response['Payload'])
-    read = response['Payload'].read()
-    print("read!", type(read), read)
-    print("decode! unicode-escape", type(read.decode('unicode-escape')),read.decode('unicode-escape'))
-    print("decode! ascii", type(read.decode('ascii')), read.decode('ascii'))
-    print("decode! utf-8", type(read.decode('utf-8')), read.decode('utf-8'))
-    print("replace!",read.decode('utf-8').replace("'", '"'))
-    print("str", str(read))
-
-    payload = json.loads(str(read).replace("'", '"'))
+    payload = json.loads(response['Payload'].read().decode('unicode-escape').replace("'", '"'))
     print("translate_payload-----------", payload)
 
 def save_is_spam(email_id: int, is_spam: int, cursor, cnx):
