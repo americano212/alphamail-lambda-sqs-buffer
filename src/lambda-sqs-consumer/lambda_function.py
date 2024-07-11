@@ -74,13 +74,15 @@ def translate(content):
         Payload=json.dumps({"queryStringParameters": {"sourceWord": content, "sourceLanguage": "ko", "targetLanguage": "en"}})
     )
     print("payload!", response['Payload'])
-    print("read!", type(response['Payload'].read()), response['Payload'].read())
-    print("decode! unicode-escape", type(response['Payload'].read().decode('unicode-escape')), response['Payload'].read().decode('unicode-escape'))
-    print("decode! ascii", type(response['Payload'].read().decode('ascii')), response['Payload'].read().decode('ascii'))
-    print("decode! utf-8", type(response['Payload'].read().decode('utf-8')), response['Payload'].read().decode('utf-8'))
-    print("replace!", response['Payload'].read().decode('utf-8').replace("'", '"'))
-    print("str", str(response['Payload'].read().decode('utf-8')))
-    payload = json.loads(str(response['Payload'].read().decode('utf-8')).replace("'", '"'))
+    read = response['Payload'].read()
+    print("read!", type(read), read)
+    print("decode! unicode-escape", type(read.decode('unicode-escape')),read.decode('unicode-escape'))
+    print("decode! ascii", type(read.decode('ascii')), read.decode('ascii'))
+    print("decode! utf-8", type(read.decode('utf-8')), read.decode('utf-8'))
+    print("replace!",read.decode('utf-8').replace("'", '"'))
+    print("str", str(read))
+
+    payload = json.loads(str(read).replace("'", '"'))
     print("translate_payload-----------", payload)
 
 def save_is_spam(email_id: int, is_spam: int, cursor, cnx):
