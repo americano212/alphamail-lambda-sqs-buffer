@@ -8,7 +8,7 @@ jobs:
   deploy-lambda:
     strategy:
       matrix:
-        lambda-function: [lambda-sqs-consumer] # [lambda-google-translate, , lambda-sqs-trigger]
+        lambda-function: [lambda-google-translate, lambda-sqs-consumer] # [ , lambda-sqs-trigger]
 
     runs-on: ubuntu-latest
     steps:

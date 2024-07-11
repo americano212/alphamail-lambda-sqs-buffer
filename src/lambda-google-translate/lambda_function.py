@@ -28,16 +28,14 @@ def lambda_handler(event, context):
 
         return {
             'statusCode': 200,
-            'body': json.dumps({'targetWord': targetWord}, ensure_ascii=False),
-            'headers': {'Content-Type': 'application/json'}
+            'body': json.dumps({'targetWord': targetWord}, ensure_ascii=False)
         }
     
     except Exception as err:
         print('[ERROR] ', err)
         return {
             'statusCode': 400,
-            'body': json.dumps({'ERROR': str(err)}, ensure_ascii=False),
-            'headers': {'Content-Type': 'application/json'}
+            'body': json.dumps({'ERROR': str(err)}, ensure_ascii=False)
         }
 
 # event = {
