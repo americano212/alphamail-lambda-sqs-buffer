@@ -66,12 +66,12 @@ def spam_classification(content)->dict:
     return payload
 
 def translate(content):
-    print("translate_content", content)
+    print("translate_content", content, type(content))
     lambda_client = boto3.client('lambda')
     response = lambda_client.invoke(    
         FunctionName='lambda-google-translate',
         InvocationType='RequestResponse',
-        Payload=json.dumps({"body-json": {"queryStringParameters": {"sourceWord": content, "sourceLanguage": "ko", "targetLanguage": "en"}}})
+        Payload=json.dumps({"queryStringParameters": {"sourceWord": content, "sourceLanguage": "ko", "targetLanguage": "en"}})
     )
     payload = json.loads(response['Payload'].read().decode('utf8').replace("'", '"'))
     print("translate_payload-----------", payload)
