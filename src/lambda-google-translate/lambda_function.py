@@ -1,6 +1,11 @@
 import json
 import sys
 import io
+import os
+
+package_path = os.path.join(os.path.dirname(__file__), 'packages')
+if package_path not in sys.path:
+    sys.path.append(package_path)
 
 sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding='utf-8')
 from googletrans import Translator
@@ -26,12 +31,12 @@ def lambda_handler(event, context):
         'headers': {'Content-Type': 'application/json'}
     }
 
-# event = {
-#   'queryStringParameters' :{
-#     "sourceWord": "apple",
-#     "sourceLanguage": "en"
-#   }
-# }
+event = {
+  'queryStringParameters' :{
+    "sourceWord": "apple",
+    "sourceLanguage": "en"
+  }
+}
 
-# context = {}
-# print(lambda_handler(event, context))
+context = {}
+print(lambda_handler(event, context))

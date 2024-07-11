@@ -1,6 +1,12 @@
 import json
+import sys
 import os
 import boto3
+
+package_path = os.path.join(os.path.dirname(__file__), 'packages')
+if package_path not in sys.path:
+    sys.path.append(package_path)
+
 from mysql.connector import (connection)
 
 def lambda_handler(event, context):

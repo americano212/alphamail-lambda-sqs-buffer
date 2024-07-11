@@ -15,10 +15,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # - name: Install dependencies
-      #   run: |
-      #     python -m pip install --upgrade pip
-      #     python -m pip install -r ./src/${{ matrix.lambda-function }}/requirements.txt -t ./src/${{ matrix.lambda-function }}/packages
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./src/${{ matrix.lambda-function }}/requirements.txt -t ./src/${{ matrix.lambda-function }}/packages
 
       - name: Copy code to rootdir
         run: |
