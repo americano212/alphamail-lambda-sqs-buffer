@@ -19,11 +19,15 @@ def google_translate(sourceWord, sourceLanguage, targetLanguage):
 
 
 def lambda_handler(event, context):
+    print("event", event)
     try:
         sourceWord = event['queryStringParameters']['sourceWord']
         sourceLanguage = event['queryStringParameters']['sourceLanguage']
         targetLanguage = event['queryStringParameters']['targetLanguage']
-
+        
+        print("sourceWord", sourceWord, type(sourceWord))
+        print("sourceLanguage", sourceLanguage, type(sourceLanguage))
+        print("targetLanguage", targetLanguage, type(targetLanguage))
         targetWord = google_translate(sourceWord, sourceLanguage, targetLanguage)
 
         return {
