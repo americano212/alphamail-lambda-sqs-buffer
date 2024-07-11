@@ -22,7 +22,7 @@ def lambda_handler(event, context):
     try:
         sourceWord = event['queryStringParameters']['sourceWord']
         sourceLanguage = event['queryStringParameters']['sourceLanguage']
-        targetLanguage='ko'
+        targetLanguage = event['queryStringParameters']['targetLanguage']
 
         targetWord = google_translate(sourceWord, sourceLanguage, targetLanguage)
 
@@ -40,12 +40,13 @@ def lambda_handler(event, context):
             'headers': {'Content-Type': 'application/json'}
         }
 
-# event = {
-#   'queryStringParameters' :{
-#     "sourceWord": "apple",
-#     "sourceLanguage": "en"
-#   }
-# }
+event = {
+  'queryStringParameters' :{
+      "sourceWord": "안녕하세요. 나는 홍길동입니다.",
+      "sourceLanguage": "ko",
+      "targetLanguage": "en"
+  }
+}
 
-# context = {}
-# print(lambda_handler(event, context))
+context = {}
+print(lambda_handler(event, context))
