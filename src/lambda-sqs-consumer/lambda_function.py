@@ -64,7 +64,7 @@ def spam_classification(content)->dict:
     payload = json.loads(response['Payload'].read().decode('utf8').replace("'", '"'))
     return payload
 
-def translate(content)->str:
+def translate(content):
     lambda_client = boto3.client('lambda')
     response = lambda_client.invoke(    
         FunctionName='lambda-google-translate',
@@ -93,5 +93,5 @@ def save_error_is_spam(email_id: int, error_message: str, cursor, cnx):
     print("email_id", email_id)
     print("error_message", error_message)
 
-event = {'Records': [{'body': {'email_id': [1]}}]}
-lambda_handler(event, "context")
+# event = {'Records': [{'body': {'email_id': [1]}}]}
+# lambda_handler(event, "context")
