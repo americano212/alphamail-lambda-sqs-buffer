@@ -18,7 +18,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r ./src/${{ matrix.lambda-function }}/requirements.txt
+          pip install -r ./src/${{ matrix.lambda-function }}/requirements.txt -t ./src/${{ matrix.lambda-function }}/packages
 
       - name: Copy code to rootdir
         run: |
