@@ -30,7 +30,7 @@ def lambda_handler(event, context):
 
             for email_id in email_id_list:
                 content = get_email_content(email_id, cursor)
-                translate(content)
+                # translate(content)
                 payload = spam_classification(content)
                 statusCode = payload['statusCode']
                 body = payload['body']
@@ -76,7 +76,7 @@ def translate(content):
     print("payload!", response['Payload'])
     read = response['Payload'].read().decode('unicode-escape')
     print("read!!", read)
-    payload = json.loads(read.replace('"{', '{\\"').replace('}"', '\\"}').replace('":"', '\\":\\"').replace('","', '\\",\\"').replace('\r\n', '\\r\\n').replace('\r', '\\r').replace('\n', '\\n').replace("'", '"'))
+    payload = json.loads(read.replace('"{', '{\\"').replace('}"', '\\"}').replace('":"', '\\":\\"').replace('","', '\\",\\"').replace('\r\n', '\\r\\n').replace('\r', '\\r').replace('\n', '\\n'))
     print("translate_payload-----------", payload)
 
 def save_is_spam(email_id: int, is_spam: int, cursor, cnx):
