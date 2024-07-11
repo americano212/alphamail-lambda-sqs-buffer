@@ -23,8 +23,9 @@ def lambda_handler(event, context):
         records = event['Records']
         # print("records", records, type(records))
         for record in records:
+            print("record",record)
             recordBody = json.loads(record['body'])
-
+            print("recordBody",recordBody)
             email_id_list = recordBody['email_id']
 
             for email_id in email_id_list:
