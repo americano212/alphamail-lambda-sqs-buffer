@@ -76,7 +76,7 @@ def translate(content):
     print("payload!", response['Payload'])
     read = response['Payload'].read().decode('unicode-escape')
     print("read!!", read)
-    payload = json.loads(read)
+    payload = json.loads(read.replace('"{', '{\\"').replace('}"', '\\"}').replace('":"', '\\":\\"').replace('","', '\\",\\"').replace('\r\n', '\\r\\n').replace('\r', '\\r').replace('\n', '\\n'))
     print("translate_payload-----------", payload)
 
 def save_is_spam(email_id: int, is_spam: int, cursor, cnx):
