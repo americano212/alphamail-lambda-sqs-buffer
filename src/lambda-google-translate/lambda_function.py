@@ -19,24 +19,33 @@ def google_translate(sourceWord, sourceLanguage, targetLanguage):
 
 
 def lambda_handler(event, context):
-    sourceWord = event['queryStringParameters']['sourceWord']
-    sourceLanguage = event['queryStringParameters']['sourceLanguage']
-    targetLanguage='ko'
+    try:
+        sourceWord = event['queryStringParameters']['sourceWord']
+        sourceLanguage = event['queryStringParameters']['sourceLanguage']
+        targetLanguage='ko'
 
-    targetWord = google_translate(sourceWord, sourceLanguage, targetLanguage)
+        targetWord = google_translate(sourceWord, sourceLanguage, targetLanguage)
 
-    return {
-        'statusCode': 200,
-        'body': json.dumps({'targetWord': targetWord}, ensure_ascii=False),
-        'headers': {'Content-Type': 'application/json'}
-    }
+        return {
+            'statusCode': 200,
+            'body': json.dumps({'targetWord': targetWord}, ensure_ascii=False),
+            'headers': {'Content-Type': 'application/json'}
+        }
+    
+    except Exception as err:
+        print('[ERROR] ', err)
+        return {
+            'statusCode': 400,
+            'body': json.dumps({'ERROR': str(err)}, ensure_ascii=False),
+            'headers': {'Content-Type': 'application/json'}
+        }
 
-event = {
-  'queryStringParameters' :{
-    "sourceWord": "apple",
-    "sourceLanguage": "en"
-  }
-}
+# event = {
+#   'queryStringParameters' :{
+#     "sourceWord": "apple",
+#     "sourceLanguage": "en"
+#   }
+# }
 
-context = {}
-print(lambda_handler(event, context))
+# context = {}
+# print(lambda_handler(event, context))
