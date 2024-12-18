@@ -37,6 +37,8 @@
 
 백엔드 Github: https://github.com/jmk307/alphamail
 
+AI Model Github: https://github.com/americano212/alphamail-spam-classification-ai-model
+
 ## 🔨 Dev Guide
 ### Cloud Architecture
 ![sqs+lambda](https://github.com/americano212/alphamail-lambda-sqs-spam-classification/assets/53344349/0173e3e0-73b5-4c70-95ea-17901edbd2cd)
